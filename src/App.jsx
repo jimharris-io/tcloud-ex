@@ -9,9 +9,6 @@ function App() {
   return (
     <>
       <div>
-      <h1 className="text-3xl font-bold underline text-blue-600">
-      Hello from tailwind!
-    </h1>
         <a href="https://vitejs.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
         </a>
@@ -22,7 +19,7 @@ function App() {
       <h1>Vite + React</h1>
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
+          count total is {count}
         </button>
         <p>
           Edit <code>src/App.jsx</code> and save to test HMR
