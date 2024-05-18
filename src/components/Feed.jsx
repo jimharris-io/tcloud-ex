@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 
-export default function Feed() {
+export default function Feed({category}) {
 
   const {
     isLoading: loadingPhotos,
@@ -9,7 +9,7 @@ export default function Feed() {
   } = useQuery({
     queryKey: ['photos'],
     queryFn: async () => {
-        return fetch(`https://www.flickr.com/services/rest/?method=flickr.photos.getRecent&api_key=5d03c785f2c85eb9b912b2c7516430ca&extras=media&format=json&nojsoncallback=1`).then((res) => res.json())
+        return fetch(`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=5d03c785f2c85eb9b912b2c7516430ca&tags=${category}&media=ph&extras=media&format=json&nojsoncallback=1`).then((res) => res.json())
     }
   });
 
@@ -20,7 +20,7 @@ export default function Feed() {
   } = useQuery({
     queryKey: ['videos'],
     queryFn: async () => {
-        return fetch(`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=5d03c785f2c85eb9b912b2c7516430ca&tags=school&media=videos&extras=media&format=json&nojsoncallback=1`).then((res) => res.json())
+        return fetch(`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=5d03c785f2c85eb9b912b2c7516430ca&tags=${category}&media=videos&extras=media&format=json&nojsoncallback=1`).then((res) => res.json())
     },
     enabled: !!photosData
   });
@@ -39,6 +39,7 @@ export default function Feed() {
   return (
     <>
       <p>feed: {photosMessage}</p>
+      <p>category: {category}</p>
       <a href={photoUrl}>{photoUrl}</a>
     </>
   )
