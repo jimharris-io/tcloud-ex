@@ -59,7 +59,7 @@ export default function Feed({ category }) {
       <CardHeader className="flex flex-col items-start gap-2">
         <div className="flex gap-2">
           <h1 className=" tracking-tight inline font-semibold from-[#5EA2EF] to-[#0072F5] text-4xl bg-clip-text text-transparent bg-gradient-to-b">
-            Media feed for
+            Media feed
           </h1>
           <h1 className="tracking-tight inline font-semibold text-4xl bg-clip-text text-default-500">
             {category}

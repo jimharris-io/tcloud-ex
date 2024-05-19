@@ -61,7 +61,7 @@ function App() {
       <Card className="p-4">
         <CardBody>
           <h1 className="tracking-tight inline font-semibold from-[#FF1CF7] to-[#b249f8] text-5xl bg-clip-text text-transparent bg-gradient-to-b">
-            Product trends
+            Product Trends
           </h1>
         </CardBody>
       </Card>

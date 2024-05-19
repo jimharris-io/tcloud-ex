@@ -50,7 +50,7 @@ export default function Chart({ data, changeCategory }) {
         <div>
           <BarChart
             width={1200}
-            height={300}
+            height={600}
             data={data}
             margin={{
               top: 5,
