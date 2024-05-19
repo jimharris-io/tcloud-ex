@@ -63,7 +63,7 @@ export default function Chart({ data, changeCategory }) {
             <XAxis dataKey="name" />
             <YAxis />
             <Tooltip />
-            <Legend />
+            {/* <Legend /> */}
             <Bar dataKey="count" fill="#8884d8" onClick={handleClick}>
               {data.map((entry, index) => (
                 <Cell
