@@ -1,3 +1,5 @@
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+
 export default function Chart({data, changeCategory}) {
  
   // let categoriesMessage = "";
@@ -10,6 +12,9 @@ export default function Chart({data, changeCategory}) {
   // if (errorProducts) productsMessage = "error";
   // if (productsData?.products?.length)
   //   productsMessage = productsData.products.length;
+
+  // const queryClient = useQueryClient()
+  // queryClient.invalidateQueries({ queryKey: ['photos'] })
 
   return (
     <>

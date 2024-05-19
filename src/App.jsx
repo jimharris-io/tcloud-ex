@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import Chart from "./components/Chart";
 import Feed from "./components/Feed";
 import { useState, useEffect } from "react";
@@ -62,3 +62,9 @@ function App() {
 }
 
 export default App;
+
+/*
+plot chart
+links on chart to drive feed contents
+basic feed
+*/
