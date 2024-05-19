@@ -1,11 +1,14 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect } from "react";
+import { Card, CardHeader, CardBody, CardFooter } from "@nextui-org/card";
 
 export default function Feed({ category }) {
   const queryClient = useQueryClient();
 
   useEffect(() => {
     queryClient.invalidateQueries({ queryKey: ["photos"] });
+
+    //queryClient.setQueryData(["photos"], (oldData) => photosData)
   }, [category]);
 
   const {
@@ -41,7 +44,7 @@ export default function Feed({ category }) {
 
   let photoUrl = "";
   let grid = <></>;
-  if (photosData?.photos?.photo/* && videosData?.photos?.photo*/) {
+  if (photosData?.photos?.photo /* && videosData?.photos?.photo*/) {
     // const example = photosData.photos.photo[0];
     // console.log(photosData.photos.photo.length);
     grid = photosData.photos.photo.map((photo, i) => {
@@ -52,12 +55,21 @@ export default function Feed({ category }) {
   }
 
   return (
-    <>
-      {/* <p>feed: {photosMessage}</p> */}
-      <p>category: {category}</p>
-      <div className="grid grid-cols-4 gap-2">{grid}</div>
-      {/* <a href={photoUrl}>{photoUrl}</a> */}
-    </>
+    <Card className="p-4">
+      <CardHeader className="flex flex-col items-start gap-2">
+        <div className="flex gap-2">
+          <h1 className=" tracking-tight inline font-semibold from-[#5EA2EF] to-[#0072F5] text-4xl bg-clip-text text-transparent bg-gradient-to-b">
+            Media feed for
+          </h1>
+          <h1 className="tracking-tight inline font-semibold text-4xl bg-clip-text text-default-500">
+            {category}
+          </h1>
+        </div>
+      </CardHeader>
+      <CardBody>
+        <div className="grid grid-cols-4 gap-2">{grid}</div>
+      </CardBody>
+    </Card>
   );
 }
 /*
@@ -71,3 +83,8 @@ https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=5d03c7
 */
 // https://www.flickr.com/services/api/misc.urls.html
 // https://live.staticflickr.com/{server-id}/{id}_{secret}_{size-suffix}.jpg
+
+// https://stackoverflow.com/questions/74851352/react-query-invalidating-query-working-but-parameters-are-outdated
+
+// https://www.npmjs.com/package/lightbox.js-react
+// https://www.lightgalleryjs.com/docs/react-image-video-gallery/

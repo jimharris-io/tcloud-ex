@@ -2,6 +2,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import Chart from "./components/Chart";
 import Feed from "./components/Feed";
 import { useState, useEffect } from "react";
+import { Card, CardHeader, CardBody, CardFooter } from "@nextui-org/card";
 
 function App() {
   const [category, setCategory] = useState();
@@ -18,11 +19,11 @@ function App() {
     },
   });
 
-  useEffect(()=>{
-    if(categoriesData){
+  useEffect(() => {
+    if (categoriesData) {
       setCategory(categoriesData[0]);
     }
-  }, [categoriesData])
+  }, [categoriesData]);
 
   const {
     isLoading: loadingProducts,
@@ -38,33 +39,36 @@ function App() {
     enabled: !!categoriesData,
   });
 
-  const chartData = {};
+  const chartData = [];
   if (productsData?.products?.length && categoriesData?.length) {
     for (let category of categoriesData) {
       const products = productsData.products.filter(
         (p) => p.category === category
       );
-      chartData[category] = products.length;
+      chartData.push({
+        name: category,
+        count: products.length,
+      });
     }
   }
 
-  const changeCategory = () => {
-    setCategory("laptops")
-  }
+  const changeCategory = (category) => {
+    setCategory(category);
+  };
 
   return (
-    <>
+    <section className="flex flex-col max-w-7xl mx-auto gap-4 py-4">
+      <Card className="p-4">
+        <CardBody>
+          <h1 className="tracking-tight inline font-semibold from-[#FF1CF7] to-[#b249f8] text-5xl bg-clip-text text-transparent bg-gradient-to-b">
+            Product trends
+          </h1>
+        </CardBody>
+      </Card>
       <Chart data={chartData} changeCategory={changeCategory} />
-      <br/>
       <Feed category={category} />
-    </>
+    </section>
   );
 }
 
 export default App;
-
-/*
-plot chart
-links on chart to drive feed contents
-basic feed
-*/
