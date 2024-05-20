@@ -26,22 +26,29 @@ Interpreted requirements as an imaginary dashboard for tracking product trends o
 ## Tech
 
 Used Vite for tooling
+
 https://vitejs.dev
 
 Used Tanstack Query for API calls and asynchronous state management
+
 https://tanstack.com/query/latest
 
 Used flickr.photos.search endpoint to return images and videos
+
 https://www.flickr.com/services/api/explore/flickr.photos.search
 
 Used Recharts for data visualisation
+
 https://recharts.org/en-US/
 
 Used NextUI and Tailwind CSS for UI and styling
+
 https://nextui.org
+
 https://tailwindcss.com
 
 Deployed to Vercel
+
 https://vercel.com
 
 ## Improvements
