@@ -11,8 +11,9 @@ export default function Feed({ category, openLightBox }) {
     //queryClient.setQueryData(["photos"], (oldData) => photosData)
   }, [category]);
 
-  const openLightBoxHandler = (contents) => {
-    openLightBox(<img src={contents}></img>);
+  const openLightBoxHandler = (photo) => {
+    const photoUrl = `https://live.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_c.jpg`;  
+    openLightBox(<img src={photoUrl}></img>);
   }
 
   const {
@@ -51,7 +52,7 @@ export default function Feed({ category, openLightBox }) {
   if (photosData?.photos?.photo /* && videosData?.photos?.photo*/) {
     grid = photosData.photos.photo.map((photo, i) => {
       photoUrl = `https://live.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_q.jpg`;
-      return <img onClick={()=>openLightBoxHandler(photoUrl)} key={`${photo}${i}`} src={photoUrl}></img>;
+      return <img onClick={()=>openLightBoxHandler(photo)} key={`${photo}${i}`} src={photoUrl}></img>;
     });
     // photosMessage = `${photosData.photos.photo.length}/${videosData.photos.photo.length}`;
   }
@@ -71,7 +72,7 @@ export default function Feed({ category, openLightBox }) {
         </div>
       </CardHeader>
       <CardBody>
-        <div className="grid grid-cols-4 gap-2">{grid}</div>
+        <div className="grid grid-cols-8 gap-2">{grid}</div>
       </CardBody>
     </Card>
   );
