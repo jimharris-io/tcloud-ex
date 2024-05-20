@@ -1,18 +1,18 @@
-##Tech task for Teacher Cloud
+## Tech task for Teacher Cloud
 
-#Source code
+# Source code
 https://github.com/jimharris-io/tcloud-ex
 
-#Staging
+# Staging
 https://tcloud-ex.vercel.app/
 
-#Local
+# Local
 git clone https://github.com/jimharris-io/tcloud-ex.git
 cd tcloud-ex
 npm i
 npm run dev
 
-#Notes
+# Notes
 
 Interpreted requirements as an imaginary dashboard for tracking product trends on social media. Bar chart plots number of products for each product category. Latest images and videos on Flickr for current category shown in media feed. Clicking on a bar in the chart changes the category, updating the media feed with related images and videos.
 
@@ -23,7 +23,7 @@ Interpreted requirements as an imaginary dashboard for tracking product trends o
 - Fewer videos on Flickr than photos, API forces search for videos or photos, feed shows photos then videos
 - User may not set a thumbnail, video thumbnails may be blank, no API endpoint specifically for thumbnails
 
-#Tech
+# Tech
 
 Used Vite for tooling
 https://vitejs.dev
@@ -44,7 +44,7 @@ https://tailwindcss.com
 Deployed to Vercel
 https://vercel.com
 
-#Improvements
+# Improvements
 
 - Make grid and chart responsive, bars could plot horizontally for mobile
 - Paginate feed
