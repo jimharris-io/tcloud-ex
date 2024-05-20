@@ -8,6 +8,7 @@ export default function Feed({ category, openLightBox }) {
 
   useEffect(() => {
     queryClient.invalidateQueries({ queryKey: ["photos"] });
+    queryClient.invalidateQueries({ queryKey: ["videos"] });
 
     //queryClient.setQueryData(["photos"], (oldData) => photosData)
   }, [category]);
@@ -23,8 +24,10 @@ export default function Feed({ category, openLightBox }) {
   } = useQuery({
     queryKey: ["photos"],
     queryFn: async () => {
+      const search = category.replace("-", " ");
+      console.log(search);
       return fetch(
-        `https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=5d03c785f2c85eb9b912b2c7516430ca&tags=${category}&media=ph&extras=media&format=json&nojsoncallback=1`
+        `https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=5d03c785f2c85eb9b912b2c7516430ca&tags=${search}&media=ph&extras=media&format=json&nojsoncallback=1`
       ).then((res) => res.json());
     },
   });
@@ -36,8 +39,10 @@ export default function Feed({ category, openLightBox }) {
   } = useQuery({
     queryKey: ["videos"],
     queryFn: async () => {
+      const search = category.replace("-", " ");
+      console.log(search);
       return fetch(
-        `https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=5d03c785f2c85eb9b912b2c7516430ca&tags=${category}&media=videos&extras=media&format=json&nojsoncallback=1`
+        `https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=5d03c785f2c85eb9b912b2c7516430ca&tags=${search}&media=videos&extras=media&format=json&nojsoncallback=1`
       ).then((res) => res.json());
     },
     // enabled: !!photosData,
