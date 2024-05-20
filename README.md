@@ -1,5 +1,7 @@
 ##Tech task for Teacher Cloud
 
+https://tcloud-ex.vercel.app/
+
 Interpreted requirements as an imaginary dashboard for tracking product trends on social media. Bar chart plots frequency of product categories. Latest images and videos on Flickr for current category shown in media feed. Clicking on a bar in the chart changes the category, updating the media feed with related images and videos.
 
 Used Vite for tooling
@@ -26,6 +28,7 @@ https://vercel.com
 - Recharts throws two console warnings, known issue, non-blocking
 
 #Possible improvements
-- Make chart responsive, bars could plot left to right for mobile
+- Make chart responsive, bars could plot horizontally for mobile
 - Make grid responsive
+- Paginate image feed
 

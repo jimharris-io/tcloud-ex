@@ -2,7 +2,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { Card, CardHeader, CardBody, CardFooter } from "@nextui-org/card";
 
-export default function Feed({ category }) {
+export default function Feed({ category, openLightBox }) {
   const queryClient = useQueryClient();
 
   useEffect(() => {
@@ -10,6 +10,10 @@ export default function Feed({ category }) {
 
     //queryClient.setQueryData(["photos"], (oldData) => photosData)
   }, [category]);
+
+  const openLightBoxHandler = (contents) => {
+    openLightBox(<img src={contents}></img>);
+  }
 
   const {
     isLoading: loadingPhotos,
@@ -45,14 +49,14 @@ export default function Feed({ category }) {
   let photoUrl = "";
   let grid = <></>;
   if (photosData?.photos?.photo /* && videosData?.photos?.photo*/) {
-    // const example = photosData.photos.photo[0];
-    // console.log(photosData.photos.photo.length);
     grid = photosData.photos.photo.map((photo, i) => {
       photoUrl = `https://live.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_q.jpg`;
-      return <img key={`${photo}${i}`} src={photoUrl}></img>;
+      return <img onClick={()=>openLightBoxHandler(photoUrl)} key={`${photo}${i}`} src={photoUrl}></img>;
     });
     // photosMessage = `${photosData.photos.photo.length}/${videosData.photos.photo.length}`;
   }
+
+  const heading = category?.replace("-", " ");
 
   return (
     <Card className="p-4">
@@ -62,7 +66,7 @@ export default function Feed({ category }) {
             Media feed
           </h1>
           <h1 className="tracking-tight inline font-semibold text-4xl bg-clip-text text-default-500">
-            {category}
+            {heading}
           </h1>
         </div>
       </CardHeader>
