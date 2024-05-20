@@ -4,7 +4,7 @@ export default function LightBox({ contents, close }) {
   let photo = null;
   let src = `https://live.staticflickr.com/${contents.server}/${contents.id}_${contents.secret}_c.jpg`;
   if (contents.media === "photo") {
-    photo = <img src={src} />;
+    photo = <img className="max-h-[80vh]" src={src} />;
   } else {
     let href = `https://www.flickr.com/photos/${contents.owner}/${contents.id}`;
     photo = (
@@ -26,7 +26,7 @@ export default function LightBox({ contents, close }) {
       >
         close
       </span>
-      <div className="z-10 max-h-[640px]">{photo}</div>
+      <div className="z-10">{photo}</div>
       <div className="absolute flex w-full h-full items-center justify-center text-sm">
         <span>loading</span>
       </div>
