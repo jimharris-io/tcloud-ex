@@ -26,7 +26,7 @@ export default function LightBox({ contents, close }) {
       >
         close
       </span>
-      <div className="z-10 max-h-[800px]">{photo}</div>
+      <div className="z-10 max-h-[640px]">{photo}</div>
       <div className="absolute flex w-full h-full items-center justify-center text-sm">
         <span>loading</span>
       </div>
