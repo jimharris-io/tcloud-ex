@@ -5,3 +5,12 @@
 .products-chart .recharts-xAxis g.recharts-cartesian-axis-ticks g:nth-child(even) text.recharts-cartesian-axis-tick-value {
     transform: translateY(1.25rem);
 }
+
+.video-thumbnail {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 150px;
+    height: 150px;
+    background-image: url('video.png')
+}

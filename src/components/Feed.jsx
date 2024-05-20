@@ -1,6 +1,7 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { Card, CardHeader, CardBody, CardFooter } from "@nextui-org/card";
+import icon from '../video.png';
 
 export default function Feed({ category, openLightBox }) {
   const queryClient = useQueryClient();
@@ -12,8 +13,7 @@ export default function Feed({ category, openLightBox }) {
   }, [category]);
 
   const openLightBoxHandler = (photo) => {
-    const photoUrl = `https://live.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_c.jpg`;  
-    openLightBox(<img src={photoUrl}></img>);
+    openLightBox(photo);
   }
 
   const {
@@ -43,18 +43,17 @@ export default function Feed({ category, openLightBox }) {
     // enabled: !!photosData,
   });
 
-  // let photosMessage = "";
-  // if(loadingPhotos || loadingVideos) photosMessage = "loading";
-  // if(errorPhotos || errorVideos) photosMessage = "error";
-
   let photoUrl = "";
   let grid = <></>;
-  if (photosData?.photos?.photo /* && videosData?.photos?.photo*/) {
-    grid = photosData.photos.photo.map((photo, i) => {
+  if (photosData?.photos?.photo && videosData?.photos?.photo) {
+    const merged = [...photosData.photos.photo, ...videosData.photos.photo]
+    grid = merged.map((photo, i) => {
       photoUrl = `https://live.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_q.jpg`;
-      return <img onClick={()=>openLightBoxHandler(photo)} key={`${photo}${i}`} src={photoUrl}></img>;
+      return <div className="relative cursor-pointer" onClick={()=>openLightBoxHandler(photo)} key={`${photo}${i}`} >
+        <img src={photoUrl}></img>
+        {photo.media === "video" ? <div className="video-thumbnail"></div> : null}
+      </div>
     });
-    // photosMessage = `${photosData.photos.photo.length}/${videosData.photos.photo.length}`;
   }
 
   const heading = category?.replace("-", " ");
