@@ -8,8 +8,8 @@ https://tcloud-ex.vercel.app/
 
 #Local
 git clone https://github.com/jimharris-io/tcloud-ex.git
-cd
-npm install
+cd tcloud-ex
+npm i
 npm run dev
 
 #Notes
