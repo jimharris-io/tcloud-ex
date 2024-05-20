@@ -1,15 +1,23 @@
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import Chart from "./components/Chart";
 import Feed from "./components/Feed";
 import LightBox from "./components/LightBox";
 import { useState, useEffect } from "react";
-import { Card, CardHeader, CardBody, CardFooter } from "@nextui-org/card";
+import { Card, CardBody } from "@nextui-org/card";
+
+/* DEMO ONLY, randomise number of products per category as API always returns 5 */
+const demoCount = Array.apply(null, Array(20)).map(e => 1 + parseInt(Math.random() * 5))
 
 function App() {
+
+  // current active category
   const [category, setCategory] = useState();
+
+  // lightbox
   const [showLightBox, setShowLightBox] = useState();
   const [lightBoxContents, setLightBoxContents] = useState();
 
+  // get categories
   const {
     isLoading: loadingCategories,
     error: errorCategories,
@@ -23,12 +31,14 @@ function App() {
     },
   });
 
+  // set default category when data available
   useEffect(() => {
     if (categoriesData) {
       setCategory(categoriesData[0]);
     }
   }, [categoriesData]);
 
+  // get products
   const {
     isLoading: loadingProducts,
     error: errorProducts,
@@ -40,94 +50,10 @@ function App() {
         res.json()
       );
     },
-    enabled: !!categoriesData,
   });
 
-  // let chartData = [
-  //   {
-  //     name: "smartphones",
-  //     count: 5,
-  //   },
-  //   {
-  //     name: "laptops",
-  //     count: 5,
-  //   },
-  //   {
-  //     name: "fragrances",
-  //     count: 5,
-  //   },
-  //   {
-  //     name: "skincare",
-  //     count: 5,
-  //   },
-  //   {
-  //     name: "groceries",
-  //     count: 5,
-  //   },
-  //   {
-  //     name: "home-decoration",
-  //     count: 5,
-  //   },
-  //   {
-  //     name: "furniture",
-  //     count: 5,
-  //   },
-  //   {
-  //     name: "tops",
-  //     count: 5,
-  //   },
-  //   {
-  //     name: "womens-dresses",
-  //     count: 5,
-  //   },
-  //   {
-  //     name: "womens-shoes",
-  //     count: 5,
-  //   },
-  //   {
-  //     name: "mens-shirts",
-  //     count: 5,
-  //   },
-  //   {
-  //     name: "mens-shoes",
-  //     count: 5,
-  //   },
-  //   {
-  //     name: "mens-watches",
-  //     count: 5,
-  //   },
-  //   {
-  //     name: "womens-watches",
-  //     count: 5,
-  //   },
-  //   {
-  //     name: "womens-bags",
-  //     count: 5,
-  //   },
-  //   {
-  //     name: "womens-jewellery",
-  //     count: 5,
-  //   },
-  //   {
-  //     name: "sunglasses",
-  //     count: 5,
-  //   },
-  //   {
-  //     name: "automotive",
-  //     count: 5,
-  //   },
-  //   {
-  //     name: "motorcycle",
-  //     count: 5,
-  //   },
-  //   {
-  //     name: "lighting",
-  //     count: 5,
-  //   },
-  // ];
-
+  // create data for chart
   let chartData = [];
-
   if (productsData?.products?.length && categoriesData?.length) {
     for (let category of categoriesData) {
       const products = productsData.products.filter(
@@ -137,26 +63,32 @@ function App() {
       label = label.charAt(0).toUpperCase() + label.slice(1);
       chartData.push({
         name: category,
-        count: products.length,
-        label: label
+        count: demoCount[chartData.length], /* should be: products.length, see note above */
+        label: label,
       });
+      
+      chartData = chartData.slice(0, )
     }
   }
 
+  // handle category change
   const changeCategory = (category) => {
     setCategory(category);
   };
 
+  // handle open and populate lightbox
   const openLightBox = (contents) => {
     setLightBoxContents(contents);
     setShowLightBox(true);
   };
 
+  // handle close lightbox
   const closeLightBox = () => {
     setLightBoxContents(null);
     setShowLightBox(false);
   };
 
+  // render app
   return (
     <>
       {showLightBox && (

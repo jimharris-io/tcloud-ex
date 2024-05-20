@@ -1,68 +1,70 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { useEffect } from "react";
 import { Card, CardHeader, CardBody, CardFooter } from "@nextui-org/card";
-import icon from '../video.png';
 
 export default function Feed({ category, openLightBox }) {
-  const queryClient = useQueryClient();
-
-  useEffect(() => {
-    queryClient.invalidateQueries({ queryKey: ["photos"] });
-    queryClient.invalidateQueries({ queryKey: ["videos"] });
-
-    //queryClient.setQueryData(["photos"], (oldData) => photosData)
-  }, [category]);
-
+  // call lightbox
   const openLightBoxHandler = (photo) => {
     openLightBox(photo);
-  }
+  };
 
+  // get photos in category, reload when category changes
   const {
     isLoading: loadingPhotos,
     error: errorPhotos,
     data: photosData,
   } = useQuery({
-    queryKey: ["photos"],
+    queryKey: ["photos", { queryType: category }],
     queryFn: async () => {
       const search = category.replace("-", " ");
-      console.log(search);
       return fetch(
         `https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=5d03c785f2c85eb9b912b2c7516430ca&tags=${search}&media=ph&extras=media&format=json&nojsoncallback=1`
       ).then((res) => res.json());
     },
   });
 
+  // get videos in category, reload when category changes
   const {
     isLoading: loadingVideos,
     error: errorVideos,
     data: videosData,
   } = useQuery({
-    queryKey: ["videos"],
+    queryKey: ["videos", { queryType: category }],
     queryFn: async () => {
       const search = category.replace("-", " ");
-      console.log(search);
       return fetch(
         `https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=5d03c785f2c85eb9b912b2c7516430ca&tags=${search}&media=videos&extras=media&format=json&nojsoncallback=1`
       ).then((res) => res.json());
     },
-    // enabled: !!photosData,
+    enabled: !!photosData,
   });
 
+  // create media feed when data available
+  // https://www.flickr.com/services/api/misc.urls.html
+  // https://live.staticflickr.com/{server-id}/{id}_{secret}_{size-suffix}.jpg
   let photoUrl = "";
   let grid = <></>;
   if (photosData?.photos?.photo && videosData?.photos?.photo) {
-    const merged = [...photosData.photos.photo, ...videosData.photos.photo]
+    const merged = [...photosData.photos.photo, ...videosData.photos.photo];
     grid = merged.map((photo, i) => {
       photoUrl = `https://live.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_q.jpg`;
-      return <div className="relative cursor-pointer" onClick={()=>openLightBoxHandler(photo)} key={`${photo}${i}`} >
-        <img src={photoUrl}></img>
-        {photo.media === "video" ? <div className="video-thumbnail"></div> : null}
-      </div>
+      return (
+        <li
+          className="relative cursor-pointer"
+          onClick={() => openLightBoxHandler(photo)}
+          key={`${photo}${i}`}
+        >
+          <img src={photoUrl} alt="Product image thumbnail."></img>
+          {photo.media === "video" ? (
+            <div className="video-thumbnail"></div>
+          ) : null}
+        </li>
+      );
     });
   }
 
   const heading = category?.replace("-", " ");
 
+  // render feed
   return (
     <Card className="p-4">
       <CardHeader className="flex flex-col items-start gap-2">
@@ -76,24 +78,8 @@ export default function Feed({ category, openLightBox }) {
         </div>
       </CardHeader>
       <CardBody>
-        <div className="grid grid-cols-8 gap-2">{grid}</div>
+        <ul className="grid grid-cols-8 gap-2">{grid}</ul>
       </CardBody>
     </Card>
   );
 }
-/*
-
-videos
-https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=5d03c785f2c85eb9b912b2c7516430ca&tags=school&media=videos&extras=media&format=json&nojsoncallback=1
-
-photos
-https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=5d03c785f2c85eb9b912b2c7516430ca&tags=school&media=ph&extras=media&format=json&nojsoncallback=1
-
-*/
-// https://www.flickr.com/services/api/misc.urls.html
-// https://live.staticflickr.com/{server-id}/{id}_{secret}_{size-suffix}.jpg
-
-// https://stackoverflow.com/questions/74851352/react-query-invalidating-query-working-but-parameters-are-outdated
-
-// https://www.npmjs.com/package/lightbox.js-react
-// https://www.lightgalleryjs.com/docs/react-image-video-gallery/

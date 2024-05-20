@@ -1,5 +1,8 @@
 ##Tech task for Teacher Cloud
 
+#Source code
+https://github.com/jimharris-io/tcloud-ex
+
 #Staging
 https://tcloud-ex.vercel.app/
 
@@ -13,7 +16,7 @@ npm run dev
 
 Interpreted requirements as an imaginary dashboard for tracking product trends on social media. Bar chart plots number of products for each product category. Latest images and videos on Flickr for current category shown in media feed. Clicking on a bar in the chart changes the category, updating the media feed with related images and videos.
 
-- Dummyjson API call always returns a value of 5 for all product categories
+- Dummyjson API call always returns a value of 5 for all product categories, using randomised value for demonstration
 - Recharts throws two console errors, known issue, non-blocking
 - Flickr embed code throws console warnings related to cookies
 - Not all Flickr videos play, documentation is minimal, various bugs identified on StackOverflow etc, will fallback to photo
@@ -48,5 +51,6 @@ https://vercel.com
 - Error handling
 - Normally API key shouldn't be committed to repo, use .env variable instead
 - Merge video and photo search results by date posted or similar, rather than display one after the other
+- Loading spinners
 
 

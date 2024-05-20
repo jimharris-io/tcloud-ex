@@ -1,41 +1,28 @@
 import { useState } from "react";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
-import React, { PureComponent } from "react";
 import {
   BarChart,
   Bar,
   Cell,
-  Rectangle,
   XAxis,
   YAxis,
   CartesianGrid,
   Tooltip,
-  Legend,
-  ResponsiveContainer,
 } from "recharts";
 
-import { Card, CardHeader, CardBody, CardFooter } from "@nextui-org/card";
+import { Card, CardHeader, CardBody } from "@nextui-org/card";
 
 export default function Chart({ data, changeCategory }) {
+
+  // current active category
   const [activeIndex, setActiveIndex] = useState(0);
-  // if (loadingCategories) categoriesMessage = "loading";
-  // if (errorCategories) categoriesMessage = "error";
-  // if (categoriesData?.length) categoriesMessage = categoriesData.length;
 
-  // let productsMessage = "";
-  // if (loadingProducts) productsMessage = "loading";
-  // if (errorProducts) productsMessage = "error";
-  // if (productsData?.products?.length)
-  //   productsMessage = productsData.products.length;
-
-  // const queryClient = useQueryClient()
-  // queryClient.invalidateQueries({ queryKey: ['photos'] })
-
+  // handle category change
   const handleClick = (data, index) => {
     setActiveIndex(index);
     changeCategory(data.name);
   };
 
+  // render chart
   return (
     <Card className="p-4">
       <CardHeader className="flex flex-col items-start gap-2">
@@ -60,10 +47,14 @@ export default function Chart({ data, changeCategory }) {
             }}
           >
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="label" interval={0} height={64} tick={{fontSize: 12}}/>
-            <YAxis/>
+            <XAxis
+              dataKey="label"
+              interval={0}
+              height={64}
+              tick={{ fontSize: 12 }}
+            />
+            <YAxis />
             <Tooltip />
-            {/* <Legend /> */}
             <Bar dataKey="count" fill="#8884d8" onClick={handleClick}>
               {data.map((entry, index) => (
                 <Cell
@@ -74,7 +65,6 @@ export default function Chart({ data, changeCategory }) {
               ))}
             </Bar>
           </BarChart>
-          {/* </ResponsiveContainer> */}
         </div>
       </CardBody>
     </Card>
