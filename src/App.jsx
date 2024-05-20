@@ -11,51 +11,138 @@ function App() {
   const [showLightBox, setShowLightBox] = useState();
   const [lightBoxContents, setLightBoxContents] = useState();
 
-  const {
-    isLoading: loadingCategories,
-    error: errorCategories,
-    data: categoriesData,
-  } = useQuery({
-    queryKey: ["categories"],
-    queryFn: async () => {
-      return fetch(`https://dummyjson.com/products/categories`).then((res) =>
-        res.json()
-      );
+  // const {
+  //   isLoading: loadingCategories,
+  //   error: errorCategories,
+  //   data: categoriesData,
+  // } = useQuery({
+  //   queryKey: ["categories"],
+  //   queryFn: async () => {
+  //     return fetch(`https://dummyjson.com/products/categories`).then((res) =>
+  //       res.json()
+  //     );
+  //   },
+  // });
+
+  // useEffect(() => {
+  //   if (categoriesData) {
+  //     setCategory(categoriesData[0]);
+  //   }
+  // }, [categoriesData]);
+
+  // const {
+  //   isLoading: loadingProducts,
+  //   error: errorProducts,
+  //   data: productsData,
+  // } = useQuery({
+  //   queryKey: ["products"],
+  //   queryFn: async () => {
+  //     return fetch(`https://dummyjson.com/products?limit=0`).then((res) =>
+  //       res.json()
+  //     );
+  //   },
+  //   enabled: !!categoriesData,
+  // });
+
+  let chartData = [
+    {
+        "name": "smartphones",
+        "count": 5
     },
-  });
-
-  useEffect(() => {
-    if (categoriesData) {
-      setCategory(categoriesData[0]);
-    }
-  }, [categoriesData]);
-
-  const {
-    isLoading: loadingProducts,
-    error: errorProducts,
-    data: productsData,
-  } = useQuery({
-    queryKey: ["products"],
-    queryFn: async () => {
-      return fetch(`https://dummyjson.com/products?limit=0`).then((res) =>
-        res.json()
-      );
+    {
+        "name": "laptops",
+        "count": 5
     },
-    enabled: !!categoriesData,
-  });
-
-  const chartData = [];
-  if (productsData?.products?.length && categoriesData?.length) {
-    for (let category of categoriesData) {
-      const products = productsData.products.filter(
-        (p) => p.category === category
-      );
-      chartData.push({
-        name: category,
-        count: products.length,
-      });
+    {
+        "name": "fragrances",
+        "count": 5
+    },
+    {
+        "name": "skincare",
+        "count": 5
+    },
+    {
+        "name": "groceries",
+        "count": 5
+    },
+    {
+        "name": "home-decoration",
+        "count": 5
+    },
+    {
+        "name": "furniture",
+        "count": 5
+    },
+    {
+        "name": "tops",
+        "count": 5
+    },
+    {
+        "name": "womens-dresses",
+        "count": 5
+    },
+    {
+        "name": "womens-shoes",
+        "count": 5
+    },
+    {
+        "name": "mens-shirts",
+        "count": 5
+    },
+    {
+        "name": "mens-shoes",
+        "count": 5
+    },
+    {
+        "name": "mens-watches",
+        "count": 5
+    },
+    {
+        "name": "womens-watches",
+        "count": 5
+    },
+    {
+        "name": "womens-bags",
+        "count": 5
+    },
+    {
+        "name": "womens-jewellery",
+        "count": 5
+    },
+    {
+        "name": "sunglasses",
+        "count": 5
+    },
+    {
+        "name": "automotive",
+        "count": 5
+    },
+    {
+        "name": "motorcycle",
+        "count": 5
+    },
+    {
+        "name": "lighting",
+        "count": 5
     }
-  }
+];
+chartData = chartData.map(d => {
+  let label = d.name.replace("-", " ")
+  label = label.charAt(0).toUpperCase() + label.slice(1);
+  return {...d, label: label }
+})
+  // if (productsData?.products?.length && categoriesData?.length) {
+  //   for (let category of categoriesData) {
+  //     const products = productsData.products.filter(
+  //       (p) => p.category === category
+  //     );
+  //     chartData.push({
+  //       name: category,
+  //       count: products.length,
+  //     });
+  //   }
+  //   console.log(chartData);
+  // }
 
   const changeCategory = (category) => {
     setCategory(category);
@@ -83,7 +170,7 @@ function App() {
         </CardBody>
       </Card>
       <Chart data={chartData} changeCategory={changeCategory} />
-      <Feed category={category} openLightBox={openLightBox}/>
+      {/* <Feed category={category} openLightBox={openLightBox}/> */}
     </section>
     </>
   );

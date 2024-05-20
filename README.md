@@ -2,7 +2,7 @@
 
 https://tcloud-ex.vercel.app/
 
-Interpreted requirements as an imaginary dashboard for tracking product trends on social media. Bar chart plots frequency of product categories. Latest images and videos on Flickr for current category shown in media feed. Clicking on a bar in the chart changes the category, updating the media feed with related images and videos.
+Interpreted requirements as an imaginary dashboard for tracking product trends on social media. Bar chart plots number of products for each product category. Latest images and videos on Flickr for current category shown in media feed. Clicking on a bar in the chart changes the category, updating the media feed with related images and videos.
 
 Used Vite for tooling
 https://vitejs.dev
@@ -31,4 +31,5 @@ https://vercel.com
 - Make chart responsive, bars could plot horizontally for mobile
 - Make grid responsive
 - Paginate image feed
+- Proper error handling
 

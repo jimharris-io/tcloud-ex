@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.products-chart .recharts-xAxis g.recharts-cartesian-axis-ticks g:nth-child(even) text.recharts-cartesian-axis-tick-value {
+    transform: translateY(1.25rem);
+}

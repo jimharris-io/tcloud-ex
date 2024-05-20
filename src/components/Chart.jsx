@@ -47,7 +47,7 @@ export default function Chart({ data, changeCategory }) {
         </p>
       </CardHeader>
       <CardBody>
-        <div>
+        <div className="products-chart">
           <BarChart
             width={1200}
             height={600}
@@ -60,8 +60,8 @@ export default function Chart({ data, changeCategory }) {
             }}
           >
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" />
-            <YAxis />
+            <XAxis dataKey="label" interval={0} height={64} tick={{fontSize: 12}}/>
+            <YAxis/>
             <Tooltip />
             {/* <Legend /> */}
             <Bar dataKey="count" fill="#8884d8" onClick={handleClick}>
